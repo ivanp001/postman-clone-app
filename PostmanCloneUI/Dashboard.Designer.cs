@@ -101,13 +101,13 @@
             // 
             // statusStrip
             // 
+            statusStrip.BackColor = Color.White;
             statusStrip.Items.AddRange(new ToolStripItem[] { systemStatus });
             statusStrip.Location = new Point(0, 469);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new Size(949, 22);
             statusStrip.TabIndex = 6;
             statusStrip.Text = "System Status";
-            statusStrip.BackColor = Color.White;
             // 
             // systemStatus
             // 

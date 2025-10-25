@@ -1,6 +1,6 @@
 ﻿namespace PostmanCloneLibrary;
 
-public class Class1
+public enum HttpAction
 {
-
+    GET
 }

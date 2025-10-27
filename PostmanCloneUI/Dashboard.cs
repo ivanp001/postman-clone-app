@@ -1,5 +1,6 @@
 using PostmanCloneLibrary;
 using System.Security.Policy;
+using System.Text;
 
 namespace PostmanCloneUI
 {
@@ -25,12 +26,30 @@ namespace PostmanCloneUI
                 return;
             }
 
+            HttpAction action;
+            if (Enum.TryParse(httpVerbSelection.SelectedItem!.ToString(), out action) == false)
+            {
+                systemStatus.Text = "Invalid HTTP verb";
+                return;
+            }
+
+
             try
             {
-                resultsText.Text = await api.CallApiAsync(apiText.Text);
-                callData.SelectedTab = resultsTab;
-                systemStatus.Text = "Ready";
+                if (httpVerbSelection?.SelectedItem?.ToString() == "POST")
+                {
+                    var content = new StringContent(bodyText.Text, Encoding.UTF8, "application/json");
+                    resultsText.Text = await api.CallApiAsync(apiText.Text, content);
+                    systemStatus.Text = "XXXXXXXXXXXXXXXXX";
+                }
+                if (httpVerbSelection?.SelectedItem?.ToString() == "GET")
+                {
+                    resultsText.Text = await api.CallApiAsync(apiText.Text, null);
+                    resultsTab.Focus();
+                }
 
+                callData.SelectedTab = resultsTab;
+                // systemStatus.Text = "Ready";
             }
             catch (Exception ex)
             {

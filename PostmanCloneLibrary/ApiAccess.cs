@@ -6,12 +6,18 @@ public class ApiAccess : IApiAccess
 {
     private readonly HttpClient client = new();
     public async Task<string> CallApiAsync(
-        string url,
+        string url, HttpContent content,
         bool formatOutput = true,
         HttpAction action = HttpAction.GET
         )
+
     {
+
         var response = await client.GetAsync(url);
+        if (action == HttpAction.POST)
+        {
+             response = await client.PostAsync(url, content);
+        }
 
         if (response.IsSuccessStatusCode)
         {

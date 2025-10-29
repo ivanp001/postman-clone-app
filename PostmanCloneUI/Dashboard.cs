@@ -33,23 +33,12 @@ namespace PostmanCloneUI
                 return;
             }
 
-
             try
             {
-                if (httpVerbSelection?.SelectedItem?.ToString() == "POST")
-                {
-                    var content = new StringContent(bodyText.Text, Encoding.UTF8, "application/json");
-                    resultsText.Text = await api.CallApiAsync(apiText.Text, content);
-                    systemStatus.Text = "XXXXXXXXXXXXXXXXX";
-                }
-                if (httpVerbSelection?.SelectedItem?.ToString() == "GET")
-                {
-                    resultsText.Text = await api.CallApiAsync(apiText.Text, null);
-                    resultsTab.Focus();
-                }
-
+                resultsText.Text = await api.CallApiAsync(apiText.Text, bodyText.Text, action);
                 callData.SelectedTab = resultsTab;
-                // systemStatus.Text = "Ready";
+                resultsTab.Focus();
+                systemStatus.Text = "Ready";
             }
             catch (Exception ex)
             {

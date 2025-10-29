@@ -1,12 +1,9 @@
 using PostmanCloneLibrary;
-using System.Security.Policy;
-using System.Text;
 
 namespace PostmanCloneUI
 {
     public partial class Dashboard : Form
     {
-
         private readonly IApiAccess api = new ApiAccess();
         public Dashboard()
         {
@@ -32,7 +29,6 @@ namespace PostmanCloneUI
                 systemStatus.Text = "Invalid HTTP verb";
                 return;
             }
-
             try
             {
                 resultsText.Text = await api.CallApiAsync(apiText.Text, bodyText.Text, action);
@@ -42,7 +38,6 @@ namespace PostmanCloneUI
             }
             catch (Exception ex)
             {
-
                 resultsText.Text = "Error message" + ex.Message;
                 systemStatus.Text = "Error";
 

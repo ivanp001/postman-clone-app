@@ -38,21 +38,14 @@ public class ApiAccess : IApiAccess
                 response = await client.PutAsync(url, content);
                 break;
             case HttpAction.PATCH:
-                var request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
-                {
-                    Content = content
-                };
-                response = await client.SendAsync(request);
+                response = await client.PatchAsync(url, content);
                 break;
             case HttpAction.DELETE:
                 response = await client.DeleteAsync(url);
-
                 break;
-
             default:
                 throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }
-
 
         if (response.IsSuccessStatusCode)
         {
@@ -78,10 +71,8 @@ public class ApiAccess : IApiAccess
         {
             return false;
         }
-
         bool output = Uri.TryCreate(url, UriKind.Absolute, out Uri outputUri) &&
             (outputUri.Scheme == Uri.UriSchemeHttps);
-
         return output;
     }
 }

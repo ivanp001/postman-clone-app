@@ -16,9 +16,11 @@ Postman Clone provides a user-friendly interface for making GET requests to APIs
 ![Postman Clone App results](Images/Screenshot2.png "Results")
 
 ## Upcomming Changes
-* Adding POST,PUT,PATCH and DELETE functionallity
-* Adding API headers
-* Handling API authentication
-* Adding Dependency Injection
-* Adding Logging
-* Create a web-based user interface for the application
+- [x] Adding POST, PUT, PATCH and DELETE functionallity
+  ![Postman Clone App updated with the rest of the HTTP methods](Images/Screenshot3.png "Ready to run POST request")
+  ![Postman Clone App updated with the rest of the HTTP methods](Images/Screenshot4.png "POST request Results")
+- [ ] Adding API headers
+- [ ] Handling API authentication
+- [ ] Adding Dependency Injection
+- [ ] Adding Logging
+- [ ] Create a web-based user interface for the application

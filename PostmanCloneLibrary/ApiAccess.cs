@@ -38,11 +38,7 @@ public class ApiAccess : IApiAccess
                 response = await client.PutAsync(url, content);
                 break;
             case HttpAction.PATCH:
-                var request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
-                {
-                    Content = content
-                };
-                response = await client.SendAsync(request);
+                response = await client.PatchAsync(url, content);
                 break;
             case HttpAction.DELETE:
                 response = await client.DeleteAsync(url);

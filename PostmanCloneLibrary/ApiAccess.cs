@@ -17,7 +17,6 @@ public class ApiAccess : IApiAccess
         return await CallApiAsync(url, stringContent, action, formatOutput);
     }
 
-
     public async Task<string> CallApiAsync(
         string url,
         HttpContent? content = null,
@@ -35,6 +34,21 @@ public class ApiAccess : IApiAccess
             case HttpAction.POST:
                 response = await client.PostAsync(url, content);
                 break;
+            case HttpAction.PUT:
+                response = await client.PutAsync(url, content);
+                break;
+            case HttpAction.PATCH:
+                var request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
+                {
+                    Content = content
+                };
+                response = await client.SendAsync(request);
+                break;
+            case HttpAction.DELETE:
+                response = await client.DeleteAsync(url);
+
+                break;
+
             default:
                 throw new ArgumentOutOfRangeException(nameof(action), action, null);
         }

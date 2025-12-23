@@ -6,6 +6,8 @@ namespace PostmanCloneLibrary;
 public class ApiAccess : IApiAccess
 {
     private readonly HttpClient client = new();
+    //overload for CallApiAsync in order not to handle code which is not ment to be
+    //handled by the UI(converting the content to HTTPContent)
     public async Task<string> CallApiAsync(
        string url,
        string content,
@@ -13,6 +15,7 @@ public class ApiAccess : IApiAccess
        bool formatOutput = true
        )
     {
+        //StringContent is a child from HTTP content
         StringContent stringContent = new(content, Encoding.UTF8, "application/json");
         return await CallApiAsync(url, stringContent, action, formatOutput);
     }
@@ -50,6 +53,7 @@ public class ApiAccess : IApiAccess
         if (response.IsSuccessStatusCode)
         {
             var json = await response.Content.ReadAsStringAsync();
+            //return raw/prety JASON
             if (formatOutput)
             {
                 var jsonElement = JsonSerializer.Deserialize<JsonElement>(json);
@@ -71,7 +75,9 @@ public class ApiAccess : IApiAccess
         {
             return false;
         }
+        //is valid URI and HTTPS (if URI is valid, means URL is valid too, bcs its part of the URI) 
         bool output = Uri.TryCreate(url, UriKind.Absolute, out Uri outputUri) &&
+
             (outputUri.Scheme == Uri.UriSchemeHttps);
         return output;
     }

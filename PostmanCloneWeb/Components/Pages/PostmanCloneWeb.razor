@@ -1,0 +1,49 @@
+﻿@page "/postmanCloneWeb"
+@using IgniteUI.Blazor.Controls
+@rendermode InteractiveServer
+@inject IApiAccess _api
+@using System.Text.Json
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+<h3>Postman Clone Web</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="col-form-label">
+                <h4>API:</h4>
+            </div>
+        </div>
+        <div class="flex-md-column col-sm-8">
+            <div class="d-flex justify-content-start">
+                <InputText class="form-control mx-2" @bind-Value="apiModel.Url" Placeholder="Url" />
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="d-flex justify-content-evenly ">
+                <button class="btn btn-primary" @onclick="GetAsync">
+                    Go
+                </button>
+            </div>
+        </div>
+    </div>
+    <label for="results">
+        Results:
+    </label>
+    <br />
+    <p>@responseBody </p>
+</div>
+
+
+
+
+@code {
+    private string? responseBody;
+    public DisplayApiModel apiModel = new DisplayApiModel();
+    public async void GetAsync()
+    {
+        responseBody = await _api.CallApiAsync(apiModel.Url);
+    }
+
+}
+
